@@ -20,7 +20,7 @@ if (query == "") {
 
 };
 
-// クイズ内容の表示
+// クイズ表示
 document.write("<br> firstSound:" + data.firstSound);
 document.write("<br> upOrDown:" + data.upOrDown);
 document.write("<br> interval:" + data.interval);
