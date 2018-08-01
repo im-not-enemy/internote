@@ -1,8 +1,28 @@
 # -*- coding: utf-8 -*-
+from logging.config import dictConfig
+
+# ログフォーマット変更
+dictConfig({
+    'version': 1,
+    'formatters': {'default': {
+        'format': '[%(asctime)s] %(levelname)s %(message)s',
+    }},
+    'handlers': {'wsgi': {
+        'class': 'logging.StreamHandler',
+        'stream': 'ext://flask.logging.wsgi_errors_stream',
+        'formatter': 'default'
+    }},
+    'root': {
+        'level': 'INFO',
+        'handlers': ['wsgi']
+    }
+})
 
 from flask import Flask, jsonify, request
 import random
 import urllib
+import logging , logging.handlers
+import json
 
 app = Flask(__name__)
 
@@ -60,11 +80,19 @@ def quiz():
   default_interval = request.args.get('default_interval')
   return getQuiz(default_interval)
 
+@app.route('/result', methods=['POST'])
+def result():
+  result = json.loads(request.data)
+  app.logger.info(result)
+  return "logged!"
+
 # main.jsからのAPIコールに応答するため、他ドメインからのAPIコールを許可する
+# jsonのPOSTを受け付けるため、Content-typeの指定を許可する
 @app.after_request
 def after_request(response):
     response.headers.add('Access-Control-Allow-Origin', '*')
+    response.headers.add('Access-Control-Allow-Headers', 'Content-type')
     return response
 
 if __name__ == '__main__':
-    app.run(debug=True,host='0.0.0.0')
+    app.run(debug=False,host='0.0.0.0')

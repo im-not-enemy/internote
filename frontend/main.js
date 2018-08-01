@@ -17,7 +17,6 @@ if (query == "") {
   xmlHttp.open("get", url, false);
   xmlHttp.send("null");
   var data = JSON.parse(xmlHttp.responseText);
-
 };
 
 // クイズ表示
@@ -43,4 +42,32 @@ document.getElementById("another_interval").onclick = function() {
 
 document.getElementById("same_interval").onclick = function() {
   location.href = "http://localhost/internote?default_interval=" + data.interval
+}
+
+document.getElementById("sucess").onclick = function() {
+  url = "http://localhost:5000/result"
+  xmlHttp.open("post", url, false);
+  xmlHttp.setRequestHeader('Content-Type','application/json');
+  data = {
+    "firstSound" : data.firstSound,
+    "upOrDown" : data.upOrDown,
+    "interval" : data.interval,
+    "secondSound" : data.secondSound,
+    "result" : "sucess"
+  }
+  xmlHttp.send(JSON.stringify(data));
+}
+
+document.getElementById("failure").onclick = function() {
+  url = "http://localhost:5000/result"
+  xmlHttp.open("post", url, false);
+  xmlHttp.setRequestHeader('Content-Type','application/json');
+  data = {
+    "firstSound" : data.firstSound,
+    "upOrDown" : data.upOrDown,
+    "interval" : data.interval,
+    "secondSound" : data.secondSound,
+    "result" : "failure"
+  }
+  xmlHttp.send(JSON.stringify(data));
 }
