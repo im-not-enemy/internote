@@ -2,15 +2,23 @@
 <html>
   <head>
     <meta charset="utf-8"/>
+    <link rel="stylesheet" type="text/css" href="style.css" />
     <title>internote</title>
   </head>
   <body>
-    <p><button id="play_first">play_first</button></p>
-    <p><button id="play_second">play_second</button></p>
-    <p><button id="sucess">success</button></p>
-    <p><button id="failure">failure</button></p>
-    <p><button id="another_interval">next quiz</button></p>
-    <p><button id="same_interval">next quiz(same interval)</button></p>
+    <p>
+      <a href="#" class="btn" id="play_first">first</a>
+      <a href="#" class="btn" id="play_second">second</a>
+    </p>
+    <div id=disp_quiz></div>
+    <p>
+      <a href="#" class="square_btn" id="sucess">success</a>
+      <a href="#" class="square_btn" id="failure">failure</a>
+    </p>
+    <p>
+      <a href="#" class="square_btn" id="another_interval">next quiz</a>
+      <a href="#" class="square_btn" id="same_interval">next quiz(same interval)</a>
+    </p>
     <script src="Tone.js"></script>
     <script src="main.js"></script>
   </body>

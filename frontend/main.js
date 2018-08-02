@@ -20,10 +20,12 @@ if (query == "") {
 };
 
 // クイズ表示
-document.write("<br> firstSound:" + data.firstSound);
-document.write("<br> upOrDown:" + data.upOrDown);
-document.write("<br> interval:" + data.interval);
-document.write("<br> secondSound:" + data.secondSound);
+var disp_quiz = document.getElementById('disp_quiz');
+disp_quiz.innerHTML =
+  '<p> firstSound: ' + data.firstSound + '</p>' +
+  '<p> upOrDown: ' + data.upOrDown + '</p>' +
+  '<p> interval: ' + data.interval + '</p>' +
+  '<p> SecondSound: ' + data.secondSound + '</p>';
 
 // ボタンに連動したアクション
 document.getElementById("play_first").onclick = function() {
