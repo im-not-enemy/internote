@@ -1,3 +1,17 @@
+function disp_next(){
+  var buttons = document.getElementById('buttons');
+  buttons.innerHTML =
+  '<a href="#" class="square_btn" id="another_interval">next quiz</a>' +
+  '<a href="#" class="square_btn" id="same_interval">next quiz(same interval)</a>'
+
+  document.getElementById("another_interval").onclick = function() {
+    location.href = "http://localhost/internote"
+  }
+  document.getElementById("same_interval").onclick = function() {
+    location.href = "http://localhost/internote?default_interval=" + data.interval
+  }
+}
+
 // メイン処理
 var xmlHttp = new XMLHttpRequest();
 
@@ -22,10 +36,10 @@ if (query == "") {
 // クイズ表示
 var disp_quiz = document.getElementById('disp_quiz');
 disp_quiz.innerHTML =
-  '<p> firstSound: ' + data.firstSound + '</p>' +
-  '<p> upOrDown: ' + data.upOrDown + '</p>' +
-  '<p> interval: ' + data.interval + '</p>' +
-  '<p> SecondSound: ' + data.secondSound + '</p>';
+//  '<p> firstSound: ' + data.firstSound + '</p>' +
+// '<p> upOrDown: ' + data.upOrDown + '</p>' +
+  '<p> interval: ' + data.interval + '</p>' ;
+//  '<p> SecondSound: ' + data.secondSound + '</p>'
 
 // ボタンに連動したアクション
 document.getElementById("play_first").onclick = function() {
@@ -38,13 +52,6 @@ document.getElementById("play_second").onclick = function() {
   synth.triggerAttackRelease(data.secondSound,'1');
 }
 
-document.getElementById("another_interval").onclick = function() {
-  location.href = "http://localhost/internote"
-}
-
-document.getElementById("same_interval").onclick = function() {
-  location.href = "http://localhost/internote?default_interval=" + data.interval
-}
 
 document.getElementById("sucess").onclick = function() {
   url = "http://localhost:5000/result"
@@ -58,6 +65,7 @@ document.getElementById("sucess").onclick = function() {
     "result" : "sucess"
   }
   xmlHttp.send(JSON.stringify(data));
+  disp_next();
 }
 
 document.getElementById("failure").onclick = function() {
@@ -72,4 +80,12 @@ document.getElementById("failure").onclick = function() {
     "result" : "failure"
   }
   xmlHttp.send(JSON.stringify(data));
+  disp_next();
 }
+
+var notes = document.getElementById('notes');
+var firstNote = data.firstSound.replace('#','%23');
+var secondNote = data.secondSound.replace('#','%23');
+notes.innerHTML =
+'<img src=images/' + firstNote + '.PNG height="140" width="100">' +
+'<img src=images/' + secondNote + '.PNG height="140" width="100">'
